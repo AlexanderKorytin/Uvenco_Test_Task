@@ -20,10 +20,8 @@ import org.koin.androidx.compose.getViewModel
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
-   // private val mainViewModel by viewModel<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       // mainViewModel.updateScreen(MainIntent.RequestData)
         setContent {
             MainScreen()
         }

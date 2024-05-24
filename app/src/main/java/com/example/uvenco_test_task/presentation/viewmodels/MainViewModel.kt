@@ -14,22 +14,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(private val mainInteractor: MainInteractor) : ViewModel() {
-    private var _mainScreenState: MutableState<MainScreenState> = mutableStateOf(MainScreenState.Start)
+    private var _mainScreenState: MutableState<MainScreenState> =
+        mutableStateOf(MainScreenState.Start)
     val mainScreenState = _mainScreenState
+    private var jobGetDataScreen: Job? = null
 
     fun updateScreen(mainIntent: MainIntent) {
         when (mainIntent) {
             is MainIntent.RequestData -> {
-                getDataScreen()
+                if (jobGetDataScreen == null) {
+                    getDataScreen()
+                }
             }
         }
     }
 
     private fun getDataScreen() {
         val list = mainInteractor.getListDrinks()
-        var job: Job? = null
-        while (job == null || job.isActive) {
-        job = viewModelScope.launch(Dispatchers.IO) {
+        jobGetDataScreen = viewModelScope.launch(Dispatchers.IO) {
+            while (true) {
                 mainInteractor.getTime().collect { time ->
                     val temp = mainInteractor.getTemperature().collect { temp ->
                         withContext(Dispatchers.Main) {
