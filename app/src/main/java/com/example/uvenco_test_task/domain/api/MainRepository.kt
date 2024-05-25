@@ -4,9 +4,5 @@ import com.example.uvenco_test_task.domain.models.Drink
 import kotlinx.coroutines.flow.Flow
 
 interface MainRepository {
-    suspend fun getTime(): Flow<String>
-
-    suspend fun getTemperature(): Flow<String>
-
     fun getListDrinks(): List<Drink>
 }

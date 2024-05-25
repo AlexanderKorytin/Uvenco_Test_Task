@@ -7,20 +7,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class MainRepositoryImpl(private val storage: SettingsStorage) : MainRepository {
-    override suspend fun getTime(): Flow<String> = flow {
-        emit(storage.getTime())
-    }
-
-    override suspend fun getTemperature(): Flow<String> = flow {
-        emit(storage.getTemperature())
-    }
 
     override fun getListDrinks(): List<Drink> {
         val settings = storage.getSettings()
         val drink = Drink(
             iconId = settings.iconId,
             drinkName = settings.drinkName,
-            drinkPrice = settings.price
+            drinkPrice = settings.price.toDouble(),
+            isFree = settings.isFree
         )
         return List(15) { drink }
     }

@@ -12,15 +12,6 @@ import kotlin.random.Random
 class SharedPrefSettingsStorage(
     private val sharedPreferences: SharedPreferences, private val json: Gson
 ) : SettingsStorage {
-    override fun getTime(): String {
-        val time = Calendar.getInstance().time.time
-        return SimpleDateFormat("HH:mm", Locale.getDefault()).format(time)
-    }
-
-    override fun getTemperature(): String {
-        val temp = Random.nextDouble(85.0, 95.1)
-        return "${String.format("%.1f", temp)}°"
-    }
 
     override fun getSettings(): SettingsData {
         val settingsStr = sharedPreferences.getString(SETTINGS, EMPTY_SETTINGS)
