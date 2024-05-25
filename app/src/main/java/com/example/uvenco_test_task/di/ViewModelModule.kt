@@ -2,6 +2,7 @@ package com.example.uvenco_test_task.di
 
 import com.example.uvenco_test_task.presentation.viewmodels.HeadViewModel
 import com.example.uvenco_test_task.presentation.viewmodels.MainViewModel
+import com.example.uvenco_test_task.presentation.viewmodels.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -12,5 +13,9 @@ val viewModelModule = module {
 
     viewModel<HeadViewModel> {
         HeadViewModel(headInteractor = get())
+    }
+
+    viewModel<SettingsViewModel>{
+        SettingsViewModel(settingsInteractor = get())
     }
 }
