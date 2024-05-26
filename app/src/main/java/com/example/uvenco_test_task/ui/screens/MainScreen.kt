@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.uvenco_test_task.domain.models.Drink
@@ -22,7 +23,9 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun MainScreen(mainViewModel: MainViewModel = koinViewModel()) {
-    mainViewModel.updateScreen(MainIntent.RequestData)
+    SideEffect {
+        mainViewModel.updateScreen(MainIntent.RequestData)
+    }
     when (val state = mainViewModel.mainScreenState.value) {
         is MainScreenState.Content -> {
             Column {
