@@ -4,7 +4,14 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.uvenco_test_task.ui.screens.MainScreen
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.UiComposable
+import androidx.compose.ui.unit.dp
+import com.example.uvenco_test_task.ui.screens.ScreenHeader
+import com.example.uvenco_test_task.ui.screens.SettingsScreen
+import com.example.uvenco_test_task.ui.theme.IconCupGradientStart
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +21,13 @@ class MainActivity : ComponentActivity() {
         )
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            Column {
+                ScreenHeader {
+
+                }
+                Divider(color = IconCupGradientStart, thickness = 1.dp)
+                SettingsScreen()
+            }
         }
     }
 }
