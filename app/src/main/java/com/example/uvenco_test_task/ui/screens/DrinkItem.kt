@@ -123,10 +123,10 @@ private fun DrinkDescription(drink: Drink, brush: Brush) {
     }
 }
 
-private fun getIconCup(id: IconId): Int {
+fun getIconCup(id: IconId): Int {
     return when (id) {
         IconId.CAPPUCCINO -> {
-            R.drawable.ic_capuccino
+            R.drawable.ic_cappuccino
         }
 
         IconId.MOKKACHINO -> {
