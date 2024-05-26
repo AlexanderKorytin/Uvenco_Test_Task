@@ -4,6 +4,5 @@ data class Settings(
     val iconId: IconId,
     val drinkName: String,
     val price: Double,
-    val checkMarkList: List<Boolean>,
     val isFree: Boolean
 )
