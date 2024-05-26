@@ -15,8 +15,7 @@ fun map(settingsData: SettingsData): Settings {
         iconId = settingsData.iconId,
         drinkName = settingsData.drinkName,
         price = settingsData.price.toDouble(),
-        checkMarkList = getCheckMarkList(settingsData.iconId),
-        isFree = settingsData.isFree && settingsData.price.toDouble() <= ZERO_PRICE
+        isFree = if (settingsData.price.toDouble() <= ZERO_PRICE) true else settingsData.isFree
     )
 }
 
@@ -24,14 +23,11 @@ fun map(settings: Settings): SettingsData {
     return SettingsData(
         iconId = settings.iconId,
         drinkName = settings.drinkName,
-        price = String.format("%1.f", settings.price)
+        price = String.format("%.1f", settings.price),
+        isFree = settings.isFree,
     )
-}
-
-private fun getCheckMarkList(iconId: IconId): List<Boolean> {
-    return listOf(iconId == IconId.CAPPUCCINO, iconId == IconId.MOKKACHINO)
 }
 
 private const val DEFAULT_NAME = "Капучино"
 private const val DEFAULT_PRICE = "199"
-private const val ZERO_PRICE = 0f
+private const val ZERO_PRICE = 0.0
