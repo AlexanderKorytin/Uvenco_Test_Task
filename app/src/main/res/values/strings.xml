@@ -3,4 +3,8 @@
     <string name="cup_size">0.33</string>
     <string name="label_text">RUNERO Touch</string>
     <string name="ru">RU</string>
+    <string name="name">Наименование</string>
+    <string name="price">Цена</string>
+    <string name="save">Сохранить</string>
+    <string name="sale_free">АПродавать бесплатно</string>
 </resources>
