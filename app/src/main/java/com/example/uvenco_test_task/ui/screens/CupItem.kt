@@ -29,8 +29,8 @@ fun CupItem(iconId: IconId, onClick: () -> Unit, isChecked: Boolean) {
             model = getIconCup(iconId),
             contentDescription = "",
             modifier = Modifier
-                .size(300.dp)
-                .align(Alignment.CenterEnd)
+                .size(287.dp)
+                .align(Alignment.Center)
                 .padding(top = if (iconId == IconId.CAPPUCCINO) 0.dp else 48.dp),
             contentScale = ContentScale.Crop,
         )
