@@ -1,4 +1,4 @@
-package com.example.uvenco_test_task.ui.screens
+package com.example.uvenco_test_task.ui.screens.settings
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,7 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.uvenco_test_task.R
 import com.example.uvenco_test_task.domain.models.IconId
-
+import com.example.uvenco_test_task.ui.screens.main.getIconCup
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -38,7 +38,8 @@ fun CupItem(iconId: IconId, onClick: () -> Unit, isChecked: Boolean) {
             GlideImage(
                 model = R.drawable.ic_check_mark,
                 contentDescription = "1",
-                modifier = Modifier.padding(bottom = 30.dp)
+                modifier = Modifier
+                    .padding(bottom = 30.dp)
                     .size(32.dp)
                     .align(Alignment.BottomCenter),
                 contentScale = ContentScale.Crop,
