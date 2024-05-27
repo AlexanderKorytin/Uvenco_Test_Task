@@ -2,6 +2,7 @@ package com.example.uvenco_test_task.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
@@ -29,14 +30,15 @@ fun CupItem(iconId: IconId, onClick: () -> Unit, isChecked: Boolean) {
             contentDescription = "",
             modifier = Modifier
                 .size(300.dp)
-                .align(if (iconId == IconId.CAPPUCCINO) Alignment.Center else Alignment.TopStart),
-            contentScale = ContentScale.FillBounds,
+                .align(Alignment.CenterEnd)
+                .padding(top = if (iconId == IconId.CAPPUCCINO) 0.dp else 48.dp),
+            contentScale = ContentScale.Crop,
         )
         if (isChecked) {
             GlideImage(
                 model = R.drawable.ic_check_mark,
                 contentDescription = "1",
-                modifier = Modifier
+                modifier = Modifier.padding(bottom = 30.dp)
                     .size(32.dp)
                     .align(Alignment.BottomCenter),
                 contentScale = ContentScale.Crop,
