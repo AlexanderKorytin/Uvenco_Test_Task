@@ -1,4 +1,4 @@
-package com.example.uvenco_test_task.ui.screens
+package com.example.uvenco_test_task.ui.screens.settings
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
@@ -57,8 +57,21 @@ import com.example.uvenco_test_task.ui.theme.RubLabelColor
 import com.example.uvenco_test_task.ui.theme.SaveButtonTextColor
 import org.koin.androidx.compose.koinViewModel
 
-val drinkNameLabelModifier = Modifier.padding(bottom = 12.dp)
-val drinkPriceLabelModifier = Modifier.padding(top = 32.dp, bottom = 12.dp)
+private val drinkNameLabelModifier = Modifier.padding(bottom = 12.dp)
+private val drinkPriceLabelModifier = Modifier.padding(top = 32.dp, bottom = 12.dp)
+private val screenContainerModifier =
+    Modifier
+        .fillMaxSize()
+        .background(color = AppBackground)
+        .padding(end = 30.dp)
+private val spacerModifier = Modifier
+    .padding(top = 64.dp)
+    .size(width = 162.dp, height = 60.dp)
+private val drinkNameValueModifier = Modifier
+    .background(color = EditTextBackGroundColor)
+    .size(width = 418.dp, height = 52.dp)
+private val drinkPriceValueModifier = Modifier
+    .size(width = 418.dp, height = 52.dp)
 
 @Composable
 fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
@@ -71,19 +84,15 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
     }
     when (val settings = settingsViewModel.settingScreenState.value) {
         is SettingsScreenState.Content -> {
-
             Row(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = AppBackground)
-                    .padding(end = 30.dp),
+                modifier = screenContainerModifier,
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 DrinkDescription(
                     settings = settings.settings,
                     viewModel = settingsViewModel,
-                    switchChecked = switchChecked
+                    switchChecked = switchChecked,
                 )
                 FieldCupChecked(settings = settings.settings, viewModel = settingsViewModel)
             }
@@ -99,18 +108,21 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
 private fun DrinkDescription(
     settings: Settings,
     viewModel: SettingsViewModel,
-    switchChecked: MutableState<Boolean>
+    switchChecked: MutableState<Boolean>,
 ) {
     Column {
-        ChapterNameLabel(R.string.name, drinkNameLabelModifier)
+        ChapterNameLabel(message = R.string.name, drinkNameLabelModifier = drinkNameLabelModifier)
         ChapterNameValue(
             settings = settings,
             viewModel = viewModel,
+            drinkNameValueModifier = drinkNameValueModifier
+
         )
-        ChapterPriceLabel(message = R.string.price, modifier = drinkPriceLabelModifier)
+        ChapterPriceLabel(message = R.string.price, drinkPriceLabelModifier = drinkPriceLabelModifier)
         ChapterPriceValue(
             settings = settings,
             viewModel = viewModel,
+            drinkPriceValueModifier = drinkPriceValueModifier
         )
         SwitchIsDrinkFree(
             settings = settings,
@@ -121,16 +133,14 @@ private fun DrinkDescription(
             SaveButton(viewModel)
         } else {
             Spacer(
-                modifier = Modifier
-                    .padding(top = 64.dp)
-                    .size(width = 162.dp, height = 60.dp)
+                modifier = spacerModifier
             )
         }
     }
 }
 
 @Composable
-private fun ChapterNameLabel(@StringRes message: Int, modifier: Modifier) {
+private fun ChapterNameLabel(@StringRes message: Int, drinkNameLabelModifier: Modifier) {
     Text(
         text = stringResource(id = R.string.name),
         color = NameTextColor,
@@ -138,7 +148,7 @@ private fun ChapterNameLabel(@StringRes message: Int, modifier: Modifier) {
         fontFamily = MontserratFamily,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Start,
-        modifier = modifier
+        modifier = drinkNameLabelModifier
     )
 }
 
@@ -146,6 +156,7 @@ private fun ChapterNameLabel(@StringRes message: Int, modifier: Modifier) {
 private fun ChapterNameValue(
     settings: Settings,
     viewModel: SettingsViewModel,
+    drinkNameValueModifier: Modifier
 ) {
     TextField(
         value = settings.drinkName,
@@ -154,9 +165,7 @@ private fun ChapterNameValue(
             viewModel.updateScreen(SettingsIntent.SetNewData(newSettings))
         },
         singleLine = true,
-        modifier = Modifier
-            .background(color = EditTextBackGroundColor)
-            .size(width = 418.dp, height = 52.dp),
+        modifier = drinkNameValueModifier,
         colors = TextFieldDefaults.colors(
             focusedTextColor = EditTextTextColor,
             unfocusedTextColor = EditTextTextColor,
@@ -170,7 +179,7 @@ private fun ChapterNameValue(
 }
 
 @Composable
-private fun ChapterPriceLabel(@StringRes message: Int, modifier: Modifier) {
+private fun ChapterPriceLabel(@StringRes message: Int, drinkPriceLabelModifier: Modifier) {
     Text(
         text = stringResource(id = R.string.name),
         color = NameTextColor,
@@ -178,7 +187,7 @@ private fun ChapterPriceLabel(@StringRes message: Int, modifier: Modifier) {
         fontFamily = MontserratFamily,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Start,
-        modifier = modifier
+        modifier = drinkPriceLabelModifier
     )
 }
 
@@ -186,14 +195,13 @@ private fun ChapterPriceLabel(@StringRes message: Int, modifier: Modifier) {
 private fun ChapterPriceValue(
     settings: Settings,
     viewModel: SettingsViewModel,
+    drinkPriceValueModifier: Modifier
 ) {
     TextField(
         value = settings.price.toInt().toString(),
         onValueChange = {
-            val tempPrice = if (it.contains(DELIMITER)) it.split(DELIMITER)[0] else it
-            val price = if (tempPrice.length > 9) tempPrice.take(9)
-                .toDouble() else if (tempPrice.isEmpty()) ZERO else tempPrice.toDouble()
-            val newSettings = settings.copy(price = price, isFree = price == ZERO)
+            val price = getPriceValue(value = it)
+            val newSettings = getSettingsWithPrice(newPrice = price, settings = settings)
             viewModel.updateScreen(SettingsIntent.SetNewData(newSettings))
         },
         singleLine = true,
@@ -204,8 +212,7 @@ private fun ChapterPriceValue(
                 contentDescription = ""
             )
         },
-        modifier = Modifier
-            .size(width = 418.dp, height = 52.dp),
+        modifier = drinkPriceValueModifier,
         colors = TextFieldDefaults.colors(
             focusedTextColor = EditTextTextColor,
             unfocusedTextColor = EditTextTextColor,
@@ -307,6 +314,32 @@ fun FieldCupChecked(settings: Settings, viewModel: SettingsViewModel) {
             )
         }
     }
+}
+
+private fun getPriceValue(value: String): Double {
+    val tempPrice = if (value.contains(DELIMITER)) {
+        value.split(DELIMITER)[0]
+    } else {
+        value
+    }
+    val price = if (tempPrice.length > 9) {
+        tempPrice.take(9).toDouble()
+    } else if (tempPrice.isEmpty()) {
+        ZERO
+    } else {
+        tempPrice.toDouble()
+    }
+    return price
+}
+
+private fun getSettingsWithPrice(newPrice: Double, settings: Settings): Settings {
+    val newSettings =
+        if (newPrice == ZERO) {
+            settings.copy(price = newPrice, isFree = true)
+        } else {
+            settings.copy(price = newPrice)
+        }
+    return newSettings
 }
 
 private const val ZERO = 0.0

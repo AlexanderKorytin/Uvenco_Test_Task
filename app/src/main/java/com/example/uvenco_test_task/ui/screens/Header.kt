@@ -33,6 +33,13 @@ import com.example.uvenco_test_task.ui.theme.LabelColor
 import com.example.uvenco_test_task.ui.theme.MontserratFamily
 import org.koin.androidx.compose.koinViewModel
 
+private val endFieldItemModifier = Modifier
+    .padding(start = 24.dp, end = 24.dp, top = 16.dp, bottom = 16.dp)
+private val headerModifier = Modifier
+    .fillMaxWidth()
+    .wrapContentHeight()
+    .background(color = AppBackground)
+    .padding(start = 24.dp, end = 26.dp)
 
 @Composable
 fun ScreenHeader(headViewModel: HeadViewModel = koinViewModel(), onClick: () -> Unit) {
@@ -42,11 +49,7 @@ fun ScreenHeader(headViewModel: HeadViewModel = koinViewModel(), onClick: () -> 
     when (val state = headViewModel.headScreenState.value) {
         is HeadScreenState.Content -> {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight()
-                    .background(color = AppBackground)
-                    .padding(start = 24.dp, end = 50.dp),
+                modifier = headerModifier,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Label {
@@ -55,9 +58,9 @@ fun ScreenHeader(headViewModel: HeadViewModel = koinViewModel(), onClick: () -> 
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.size(width = 259.dp, height = 54.dp),
+                    modifier = Modifier.wrapContentHeight(),
 
-                ) {
+                    ) {
                     Time(time = state.time)
                     Delimiter()
                     Temp(temperature = state.temperature)
@@ -74,7 +77,12 @@ fun ScreenHeader(headViewModel: HeadViewModel = koinViewModel(), onClick: () -> 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun Label(onClick: () -> Unit) {
-    Row(Modifier.clickable { onClick() }.padding(top = 16.dp, bottom = 16.dp)
+    Row(
+        Modifier
+            .clickable {
+                onClick()
+            }
+            .padding(top = 16.dp, bottom = 16.dp)
     ) {
         GlideImage(
             model = R.drawable.ic_icon,
@@ -105,6 +113,7 @@ private fun Time(time: String) {
         fontFamily = MontserratFamily,
         fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Center,
+        modifier = endFieldItemModifier
     )
 }
 
@@ -112,6 +121,7 @@ private fun Time(time: String) {
 @Composable
 private fun Temp(temperature: String) {
     Row(
+        modifier = endFieldItemModifier,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -139,6 +149,7 @@ private fun Language() {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
+        modifier = endFieldItemModifier
     ) {
         GlideImage(
             model = R.drawable.ic_rus_flag,
