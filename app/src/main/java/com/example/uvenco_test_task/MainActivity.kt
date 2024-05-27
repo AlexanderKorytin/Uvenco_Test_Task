@@ -4,14 +4,8 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.UiComposable
-import androidx.compose.ui.unit.dp
-import com.example.uvenco_test_task.ui.screens.ScreenHeader
-import com.example.uvenco_test_task.ui.screens.SettingsScreen
-import com.example.uvenco_test_task.ui.theme.IconCupGradientStart
+import androidx.navigation.compose.rememberNavController
+import com.example.uvenco_test_task.ui.navigation.AppNavigationGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,13 +15,10 @@ class MainActivity : ComponentActivity() {
         )
         super.onCreate(savedInstanceState)
         setContent {
-            Column {
-                ScreenHeader {
-
-                }
-                Divider(color = IconCupGradientStart, thickness = 1.dp)
-                SettingsScreen()
-            }
+            val navController = rememberNavController()
+            AppNavigationGraph(
+                navController = navController
+            )
         }
     }
 }
