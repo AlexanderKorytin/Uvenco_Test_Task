@@ -3,7 +3,7 @@ package com.example.uvenco_test_task.ui.screens.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,7 +20,7 @@ import com.example.uvenco_test_task.ui.theme.AppBackground
 import org.koin.androidx.compose.koinViewModel
 
 private val containerScreenModifier = Modifier
-    .fillMaxWidth()
+    .fillMaxSize()
     .background(color = AppBackground)
     .padding(12.dp)
 
