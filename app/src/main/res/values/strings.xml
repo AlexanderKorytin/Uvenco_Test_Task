@@ -6,5 +6,5 @@
     <string name="name">Наименование</string>
     <string name="price">Цена</string>
     <string name="save">Сохранить</string>
-    <string name="sale_free">АПродавать бесплатно</string>
+    <string name="sale_free">Продавать бесплатно</string>
 </resources>
