@@ -118,7 +118,10 @@ private fun DrinkDescription(
             drinkNameValueModifier = drinkNameValueModifier
 
         )
-        ChapterPriceLabel(message = R.string.price, drinkPriceLabelModifier = drinkPriceLabelModifier)
+        ChapterPriceLabel(
+            message = R.string.price,
+            drinkPriceLabelModifier = drinkPriceLabelModifier
+        )
         ChapterPriceValue(
             settings = settings,
             viewModel = viewModel,

@@ -15,7 +15,7 @@ val viewModelModule = module {
         HeadViewModel(headInteractor = get())
     }
 
-    viewModel<SettingsViewModel>{
+    viewModel<SettingsViewModel> {
         SettingsViewModel(settingsInteractor = get())
     }
 }
