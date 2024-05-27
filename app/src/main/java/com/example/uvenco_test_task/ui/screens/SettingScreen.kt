@@ -5,7 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -72,24 +71,21 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
     }
     when (val settings = settingsViewModel.settingScreenState.value) {
         is SettingsScreenState.Content -> {
-            Box(
+
+            Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = AppBackground)
+                    .padding(end = 30.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier
-                        .background(color = AppBackground)
-                        .padding(end = 30.dp)
-                        .align(Alignment.CenterEnd),
-                ) {
-                    DrinkDescription(
-                        settings = settings.settings,
-                        viewModel = settingsViewModel,
-                        switchChecked = switchChecked
-                    )
-                    FieldCupChecked(settings = settings.settings, viewModel = settingsViewModel)
-                }
+                DrinkDescription(
+                    settings = settings.settings,
+                    viewModel = settingsViewModel,
+                    switchChecked = switchChecked
+                )
+                FieldCupChecked(settings = settings.settings, viewModel = settingsViewModel)
             }
         }
 
@@ -296,7 +292,10 @@ private fun SaveButton(viewModel: SettingsViewModel) {
 @Composable
 fun FieldCupChecked(settings: Settings, viewModel: SettingsViewModel) {
     val listIconIds = listOf(IconId.CAPPUCCINO, IconId.MOKKACHINO)
-    LazyRow(modifier = Modifier.padding(end = 60.dp)) {
+    LazyRow(
+        modifier = Modifier.padding(end = 30.dp, bottom = 90.dp),
+        verticalAlignment = Alignment.Top
+    ) {
         items(listIconIds) { currentIconId ->
             CupItem(
                 iconId = currentIconId,
