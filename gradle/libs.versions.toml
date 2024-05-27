@@ -12,7 +12,7 @@ glide = "1.0.0-beta01"
 coroutines = "1.7.3"
 koin = "3.5.3"
 navigation = "2.7.7"
-gson = "2.8.5"
+gson = "2.10.1"
 
 [libraries]
 
