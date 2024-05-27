@@ -80,7 +80,7 @@ fun SettingsScreen(settingsViewModel: SettingsViewModel = koinViewModel()) {
                 Row(
                     modifier = Modifier
                         .background(color = AppBackground)
-                        .padding(end = 60.dp)
+                        .padding(end = 30.dp)
                         .align(Alignment.CenterEnd),
                 ) {
                     DrinkDescription(
