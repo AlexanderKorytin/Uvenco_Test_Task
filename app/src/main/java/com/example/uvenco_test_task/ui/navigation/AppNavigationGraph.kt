@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 fun AppNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = "main",
+        startDestination = ROOT_MAIN,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Start,
@@ -37,7 +37,7 @@ fun AppNavigationGraph(navController: NavHostController) {
         }
     ) {
         main {
-            navController.navigate(route = "settings")
+            navController.navigate(route = ROOT_SETTINGS)
         }
         settings {
             navController.navigateUp()
@@ -45,4 +45,6 @@ fun AppNavigationGraph(navController: NavHostController) {
     }
 }
 
+const val ROOT_SETTINGS = "settings"
+const val ROOT_MAIN = "main"
 private const val ANIMATION_DURATION = 500

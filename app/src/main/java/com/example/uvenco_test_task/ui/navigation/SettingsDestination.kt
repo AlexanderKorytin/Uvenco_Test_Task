@@ -10,7 +10,7 @@ import com.example.uvenco_test_task.ui.screens.settings.SettingsScreen
 import com.example.uvenco_test_task.ui.theme.IconCupGradientStart
 
 fun NavGraphBuilder.settings(onLabelClick: () -> Unit) {
-    composable(route = "settings") {
+    composable(route = ROOT_SETTINGS) {
         Column {
             ScreenHeader(onClick = onLabelClick)
             Divider(color = IconCupGradientStart, thickness = 1.dp)

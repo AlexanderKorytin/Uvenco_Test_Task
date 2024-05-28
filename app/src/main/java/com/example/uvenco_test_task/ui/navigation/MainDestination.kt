@@ -10,7 +10,7 @@ import com.example.uvenco_test_task.ui.screens.main.MainScreen
 import com.example.uvenco_test_task.ui.theme.IconCupGradientStart
 
 fun NavGraphBuilder.main(onLabelClick: () -> Unit) {
-    composable(route = "main") {
+    composable(route = ROOT_MAIN) {
         Column {
             ScreenHeader(onClick = onLabelClick)
             Divider(color = IconCupGradientStart, thickness = 1.dp)
